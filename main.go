@@ -15,6 +15,10 @@ func main() {
 	if err != nil {
 		exitError(err)
 	}
+	err = config.ParseEnv(conf)
+	if err != nil {
+		exitError(err)
+	}
 
 	srv := server.New(conf)
 	if err := srv.Listen(); err != nil {

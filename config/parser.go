@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 
+	"github.com/kelseyhightower/envconfig"
 	"gopkg.in/yaml.v2"
 )
 
@@ -20,4 +21,8 @@ func ParseFile(filename string, conf *Config) error {
 	}
 
 	return nil
+}
+
+func ParseEnv(conf *Config) error {
+	return envconfig.Process("", conf)
 }

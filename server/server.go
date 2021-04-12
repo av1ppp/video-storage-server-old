@@ -2,7 +2,9 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -10,6 +12,8 @@ import (
 )
 
 const maxHeaderBytes = 1 << 20 // 1 MB
+
+var isDebug = os.Getenv("DEBUG") == "true"
 
 type Server struct {
 	httpServer *http.Server
@@ -30,6 +34,9 @@ func New(conf *config.Config) *Server {
 }
 
 func (srv *Server) Listen() error {
+	if isDebug {
+		fmt.Printf("server started on %s\n", srv.httpServer.Addr)
+	}
 	return srv.httpServer.ListenAndServe()
 }
 
