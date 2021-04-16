@@ -1,1 +1,1 @@
-# Media Server
+# Video Storage Server

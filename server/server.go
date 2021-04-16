@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/AviParampampam/media-server/config"
+	"github.com/AviParampampam/video-storage-server/config"
 )
 
 const maxHeaderBytes = 1 << 20 // 1 MB
@@ -19,20 +19,22 @@ type Server struct {
 	httpServer *http.Server
 }
 
+// New - создать новый сервер.
 func New(conf *config.Config) *Server {
-	srv := &Server{}
+	s := &Server{}
 
-	srv.httpServer = &http.Server{
+	s.httpServer = &http.Server{
 		Addr:           ":" + strconv.Itoa(conf.Server.Port),
-		Handler:        srv.newHandler(),
+		Handler:        s.newHandler(),
 		MaxHeaderBytes: maxHeaderBytes,
 		ReadTimeout:    time.Second * 10,
 		WriteTimeout:   time.Second * 10,
 	}
 
-	return srv
+	return s
 }
 
+// Listen - начать прослушивание сервера.
 func (srv *Server) Listen() error {
 	if isDebug {
 		fmt.Printf("server started on %s\n", srv.httpServer.Addr)
@@ -40,6 +42,7 @@ func (srv *Server) Listen() error {
 	return srv.httpServer.ListenAndServe()
 }
 
+// Shutdown - завершить работу сервера
 func (srv *Server) Shutdown(ctx context.Context) error {
 	return srv.httpServer.Shutdown(ctx)
 }
