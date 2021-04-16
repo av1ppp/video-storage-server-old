@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/AviParampampam/media-server/config"
-	"github.com/AviParampampam/media-server/server"
+	"github.com/AviParampampam/video-storage-server/config"
+	"github.com/AviParampampam/video-storage-server/server"
 	"github.com/fatih/color"
 )
 
